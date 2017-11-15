@@ -3,10 +3,10 @@ const getRandom = function(min, max) {
 }
 
 // Enemies our player must avoid
-var Enemy = function() {
+const Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-	this.x = getRandom(0, 515);
+	this.x = getRandom(100, 515);
 	this.y = getRandom(40, 250);
 	this.speed = getRandom(50, 100);
     // The image/sprite for our enemies, this uses
@@ -19,8 +19,13 @@ var Enemy = function() {
 Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
-    // all computers.
+    // all computers.	
 	this.x += this.speed * dt;
+	
+	if (this.x > 515) {
+		this.x = -100;
+	}
+	
 };
 
 // Draw the enemy on the screen, required method for game
