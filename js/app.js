@@ -52,16 +52,24 @@ Player.prototype.update = function() {
 Player.prototype.handleInput = function(key) {
 	switch (key) {
 		case 'left':
-			this.x -= 100;
+			if (this.x > 50) {
+				this.x -= 100;
+			}
 			break;
 		case 'up':
-			this.y -= 85;
+			if (this.y > 25) {
+				this.y -= 85;
+			}
 			break;
 		case 'right':
-			this.x += 100;
+			if (this.x < 400) {
+				this.x += 100;
+			}
 			break;
 		case 'down':
-			this.y += 85;
+			if (this.y < 300) {
+				this.y += 85;
+			}
 			break;
 	}
 };
