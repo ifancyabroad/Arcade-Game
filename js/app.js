@@ -21,7 +21,7 @@ const getLane = function() {
 
 // Enemies our player must avoid
 const Enemy = function() {
-	// x and y variables for location
+	// Starting x and y variables for location
 	this.x = getRandom(100, 515);
 	this.y = getLane();
 	// Speed variable
@@ -49,19 +49,34 @@ Enemy.prototype.render = function() {
 
 // Player class
 const Player = function() {
+	// Starting x and y variables for location
 	this.x = 200;
 	this.y = 375;
+	// The image/sprite for the player
 	this.sprite = 'images/char-boy.png';
 }
 
-// Draw the player o the screen
+// Draw the player to the screen
 Player.prototype.render = function() {
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+// Checking for collisions
 Player.prototype.update = function() {
-	
+	for (let enemy of allEnemies) {
+		let xLoc = this.x - enemy.x;
+		let yLoc = this.y - enemy.y;
+		if ((xLoc < 50 && xLoc > -50) && (yLoc < 30 && yLoc > -30)) {
+			this.hit();
+		}
+	}
 };
+
+// Player is hit by an enemy
+Player.prototype.hit = function() {
+	this.x = 200;
+	this.y = 375;
+}
 
 // Player moves based on user input
 Player.prototype.handleInput = function(key) {
