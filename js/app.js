@@ -17,9 +17,31 @@ const getRandom = function(min, max) {
 	return Math.random() * (max - min) + min;
 }
 
+// Get a random column
+const getColumn = function() {
+	let columns = Math.floor(Math.random() * (6 - 1)) + 1;
+	switch (columns) {
+		case 1:
+			return 0;
+			break;
+		case 2:
+			return 100;
+			break;
+		case 3:
+			return 200;
+			break;
+		case 4:
+			return 300;
+			break;
+		case 5:
+			return 400;
+			break;
+	}
+}
+
 // Get a random lane
 const getLane = function() {
-	lanes = Math.floor(Math.random() * (4 - 1)) + 1;
+	let lanes = Math.floor(Math.random() * (4 - 1)) + 1;
 	switch (lanes) {
 		case 1:
 			return 60;
