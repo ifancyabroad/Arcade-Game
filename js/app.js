@@ -1,27 +1,27 @@
+// Get random number within a range
 const getRandom = function(min, max) {
 	return Math.random() * (max - min) + min;
 }
 
+
+
 // Enemies our player must avoid
 const Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
+	// x and y variables for location
 	this.x = getRandom(100, 515);
 	this.y = getRandom(40, 250);
+	// Speed variable
 	this.speed = getRandom(20, 200);
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
+    // The image/sprite for our enemies
     this.sprite = 'images/enemy-bug.png';
 };
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.	
 	this.x += this.speed * dt;
 	
+	// Enemies loop back around after exiting the screen
 	if (this.x > 515) {
 		this.x = -100;
 	}
@@ -32,15 +32,14 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+// Player class
 const Player = function() {
 	this.x = 200;
 	this.y = 375;
 	this.sprite = 'images/char-boy.png';
 }
 
+// Draw the player o the screen
 Player.prototype.render = function() {
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
@@ -49,6 +48,7 @@ Player.prototype.update = function() {
 	
 };
 
+// Player moves based on user input
 Player.prototype.handleInput = function(key) {
 	switch (key) {
 		case 'left':
@@ -88,12 +88,12 @@ const generateEnemies = function(num) {
 
 generateEnemies(5);
 
-// Place the player object in a variable called player
+// Global variable for the player
 let player = new Player();
 
 
 // This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+// Player.handleInput() method.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
