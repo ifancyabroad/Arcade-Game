@@ -1,3 +1,4 @@
+'use strict';
 // Global variable for score and document element
 let scoreDisplay = document.getElementById('score');
 let score = 0;
@@ -6,18 +7,18 @@ let score = 0;
 const resetScore = function() {
 	score = 0;
 	scoreDisplay.innerHTML = 'Score: ' + score;
-}
+};
 
 // Increase the score and update the page
 const addScore = function(num) {
 	score += num;
 	scoreDisplay.innerHTML = 'Score: ' + score;
-}
+};
 
 // Get random number within a range
 const getRandom = function(min, max) {
 	return Math.random() * (max - min) + min;
-}
+};
 
 // Get a random column
 const getColumn = function() {
@@ -25,21 +26,16 @@ const getColumn = function() {
 	switch (columns) {
 		case 1:
 			return 0;
-			break;
 		case 2:
 			return 100;
-			break;
 		case 3:
 			return 200;
-			break;
 		case 4:
 			return 300;
-			break;
 		case 5:
 			return 400;
-			break;
 	}
-}
+};
 
 // Get a random lane
 const getLane = function() {
@@ -47,15 +43,12 @@ const getLane = function() {
 	switch (lanes) {
 		case 1:
 			return 60;
-			break;
 		case 2:
 			return 140;
-			break;
 		case 3:
 			return 220;
-			break;
 	}
-}
+};
 
 // Enemies our player must avoid
 const Enemy = function() {
@@ -100,7 +93,7 @@ const Player = function() {
 	// Starting x and y variables for location
 	this.x = 200;
 	this.y = 380;
-}
+};
 
 // Draw the player to the screen
 Player.prototype.render = function() {
