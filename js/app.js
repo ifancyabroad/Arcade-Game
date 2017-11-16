@@ -125,6 +125,9 @@ Player.prototype.changeChar = function() {
 // Player moves based on user input
 Player.prototype.handleInput = function(key) {
 	switch (key) {
+		case 'space':
+			this.changeChar();
+			break;
 		case 'left':
 			if (this.x > 50) {
 				this.x -= 100;
@@ -170,6 +173,7 @@ let player = new Player();
 // Player.handleInput() method.
 document.addEventListener('keyup', function(e) {
     const allowedKeys = {
+		32: 'space',
         37: 'left',
         38: 'up',
         39: 'right',
