@@ -99,7 +99,7 @@ const Player = function() {
 	this.sprite = this.characters[this.character];
 	// Starting x and y variables for location
 	this.x = 200;
-	this.y = 375;
+	this.y = 380;
 }
 
 // Draw the player to the screen
@@ -117,6 +117,13 @@ Player.prototype.update = function() {
 			this.hit();
 		}
 	}
+	
+	// Player makes contact with a gem
+	for (let gem of allGems) {
+		if (this.x === gem.x && this.y === gem.y) {
+			gem.collect();
+		}
+	}
 	// Player made it to the end
 	if (this.y < 0) {
 		this.win();
@@ -129,7 +136,7 @@ Player.prototype.hit = function() {
 	resetScore();
 	// Reset location
 	this.x = 200;
-	this.y = 375;
+	this.y = 380;
 }
 
 // Player wins
@@ -138,7 +145,7 @@ Player.prototype.win = function() {
 	addScore(100);
 	// Reset location
 	this.x = 200;
-	this.y = 375;
+	this.y = 380;
 }
 
 // Change player sprite by moving through characters array
@@ -167,7 +174,7 @@ Player.prototype.handleInput = function(key) {
 			break;
 		case 'up':
 			if (this.y > 25) {
-				this.y -= 85;
+				this.y -= 80;
 			}
 			break;
 		case 'right':
@@ -177,7 +184,7 @@ Player.prototype.handleInput = function(key) {
 			break;
 		case 'down':
 			if (this.y < 300) {
-				this.y += 85;
+				this.y += 80;
 			}
 			break;
 	}
@@ -196,6 +203,11 @@ const Gem = function() {
 Gem.prototype.render = function() {
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+Gem.prototype.collect = function() {
+	let index = allGems.indexOf(this);
+	allGems.splice(index, 1);
+}
 
 // Object arrays
 let allEnemies = [];
