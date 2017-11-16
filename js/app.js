@@ -63,11 +63,18 @@ Enemy.prototype.render = function() {
 
 // Player class
 const Player = function() {
+	this.character = 0;
+	this.characters = 
+	['images/char-boy.png',
+	'images/char-cat-girl.png',
+	'images/char-horn-girl.png',
+	'images/char-pink-girl.png',
+	'images/char-princess-girl.png'];
+	// The image/sprite for the player
+	this.sprite = this.characters[this.character];
 	// Starting x and y variables for location
 	this.x = 200;
 	this.y = 375;
-	// The image/sprite for the player
-	this.sprite = 'images/char-boy.png';
 }
 
 // Draw the player to the screen
@@ -103,6 +110,16 @@ Player.prototype.win = function() {
 	addScore(100);
 	this.x = 200;
 	this.y = 375;
+}
+
+Player.prototype.changeChar = function() {
+	if (this.character < this.characters.length - 1) {
+		this.character++
+		this.sprite = this.characters[this.character];
+	} else {
+		this.character = 0;
+		this.sprite = this.characters[this.character];
+	}
 }
 
 // Player moves based on user input
