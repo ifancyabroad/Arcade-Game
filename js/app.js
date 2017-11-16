@@ -3,13 +3,27 @@ const getRandom = function(min, max) {
 	return Math.random() * (max - min) + min;
 }
 
-
+// Get a random lane
+const getLane = function() {
+	lanes = Math.floor(Math.random() * (4 - 1)) + 1;
+	switch (lanes) {
+		case 1:
+			return 60;
+			break;
+		case 2:
+			return 140;
+			break;
+		case 3:
+			return 220;
+			break;
+	}
+}
 
 // Enemies our player must avoid
 const Enemy = function() {
 	// x and y variables for location
 	this.x = getRandom(100, 515);
-	this.y = getRandom(40, 250);
+	this.y = getLane();
 	// Speed variable
 	this.speed = getRandom(20, 200);
     // The image/sprite for our enemies
@@ -24,6 +38,7 @@ Enemy.prototype.update = function(dt) {
 	// Enemies loop back around after exiting the screen
 	if (this.x > 515) {
 		this.x = -100;
+		this.y = getLane();
 	}
 };
 
