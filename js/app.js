@@ -130,13 +130,17 @@ Player.prototype.update = function() {
 	}
 };
 
+Player.prototype.reset = function() {
+	this.x = 200;
+	this.y = 380;
+}
+
 // Player is hit by an enemy
 Player.prototype.hit = function() {
 	// Reset score
 	resetScore();
 	// Reset location
-	this.x = 200;
-	this.y = 380;
+	this.reset();
 }
 
 // Player wins
@@ -144,8 +148,9 @@ Player.prototype.win = function() {
 	// Increment score
 	addScore(100);
 	// Reset location
-	this.x = 200;
-	this.y = 380;
+	this.reset();
+	// Refill gems
+	refillGems();
 }
 
 // Change player sprite by moving through characters array
@@ -207,6 +212,7 @@ Gem.prototype.render = function() {
 Gem.prototype.collect = function() {
 	let index = allGems.indexOf(this);
 	allGems.splice(index, 1);
+	addScore(50);
 }
 
 // Object arrays
@@ -218,6 +224,13 @@ const generateObjects = function(num, array, Class) {
 	for (let i = 0; i < num; i++) {
 		let object = new Class();
 		array.push(object);
+	}
+}
+
+// Refill gems
+const refillGems = function() {
+	while (allGems.length < 2) {
+		generateObjects(1, allGems, Gem);
 	}
 }
 
