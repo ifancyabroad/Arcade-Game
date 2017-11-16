@@ -1,3 +1,12 @@
+// Global variable for score
+let scoreDisplay = document.getElementById('score');
+let score = 0;
+
+const addScore = function(num) {
+	score += num;
+	scoreDisplay.innerHTML = 'Score: ' + score;
+}
+
 // Get random number within a range
 const getRandom = function(min, max) {
 	return Math.random() * (max - min) + min;
@@ -25,7 +34,7 @@ const Enemy = function() {
 	this.x = getRandom(100, 515);
 	this.y = getLane();
 	// Speed variable
-	this.speed = getRandom(20, 200);
+	this.speed = getRandom(20, 400);
     // The image/sprite for our enemies
     this.sprite = 'images/enemy-bug.png';
 };
@@ -35,7 +44,7 @@ const Enemy = function() {
 Enemy.prototype.update = function(dt) {
 	this.x += this.speed * dt;
 	
-	// Enemies loop back around after exiting the screen
+	// Enemies loop back around with a new lane after exiting the screen
 	if (this.x > 515) {
 		this.x = -100;
 		this.y = getLane();
@@ -73,10 +82,7 @@ Player.prototype.update = function() {
 	}
 	// Player made it to the end
 	if (this.y < 0) {
-		let that = this;
-		setTimeout(function() {
-			that.win();
-		}, 500);
+		this.win();
 	}
 };
 
@@ -88,6 +94,7 @@ Player.prototype.hit = function() {
 
 // Player wins
 Player.prototype.win = function() {
+	addScore(100);
 	this.x = 200;
 	this.y = 375;
 }
@@ -139,7 +146,7 @@ let player = new Player();
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method.
 document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
+    const allowedKeys = {
         37: 'left',
         38: 'up',
         39: 'right',
