@@ -130,6 +130,7 @@ Player.prototype.update = function() {
 	}
 };
 
+// Reset player location
 Player.prototype.reset = function() {
 	this.x = 200;
 	this.y = 380;
@@ -141,6 +142,8 @@ Player.prototype.hit = function() {
 	resetScore();
 	// Reset location
 	this.reset();
+	// Reset gems
+	refillGems();
 }
 
 // Player wins
@@ -195,13 +198,16 @@ Player.prototype.handleInput = function(key) {
 	}
 };
 
-// Gems for th player to collect
+// Gems for the player to collect
 const Gem = function() {
-	// The image/sprite for the gem
+	// Default gem is blue
 	this.sprite = 'images/Gem Blue.png';
+	// Score for collecting a blue gem
+	this.score = 50;
 	// Starting x and y variables for location
 	this.x = getColumn();
-	this.y = getLane();
+	// Generated in the first (easiest) lane
+	this.y = 220;
 }
 
 // Render the gems to the screen
@@ -209,11 +215,42 @@ Gem.prototype.render = function() {
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+// Increment score and remove gem once collected
 Gem.prototype.collect = function() {
 	let index = allGems.indexOf(this);
 	allGems.splice(index, 1);
-	addScore(50);
+	addScore(this.score);
 }
+
+// Green gems
+const GemGreen = function() {
+	Gem.call(this);
+	// Sprite for green gem
+	this.sprite = 'images/Gem Green.png';
+	// Score for green gem slightly higher
+	this.score = 100;
+	// Generated in the second lane
+	this.y = 140;
+}
+
+// Set the prototype object and re-assign the constructor
+GemGreen.prototype = Object.create(Gem.prototype);
+GemGreen.prototype.constructor = GemGreen;
+
+// Orange gems
+const GemOrange = function() {
+	Gem.call(this);
+	// Sprite for orange gem
+	this.sprite = 'images/Gem Orange.png';
+	// Score for orange gem is the highest
+	this.score = 150;
+	// Generated in the third lane
+	this.y = 60;
+}
+
+// Set the prototype object and re-assign the constructor
+GemOrange.prototype = Object.create(Gem.prototype);
+GemOrange.prototype.constructor = GemOrange;
 
 // Object arrays
 let allEnemies = [];
@@ -229,14 +266,17 @@ const generateObjects = function(num, array, Class) {
 
 // Refill gems
 const refillGems = function() {
-	while (allGems.length < 2) {
-		generateObjects(1, allGems, Gem);
-	}
+	allGems.splice(0);
+	generateObjects(1, allGems, Gem);
+	generateObjects(1, allGems, GemGreen);
+	generateObjects(1, allGems, GemOrange);
 }
 
 // Generate a specified amount of objects
 generateObjects(5, allEnemies, Enemy);
-generateObjects(1, allGems, Gem);
+
+// Populate gems
+refillGems();
 
 // Global variable for the player
 let player = new Player();
