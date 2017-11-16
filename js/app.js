@@ -63,6 +63,7 @@ Player.prototype.render = function() {
 
 // Checking for collisions
 Player.prototype.update = function() {
+	// Player is hit by an enemy
 	for (let enemy of allEnemies) {
 		let xLoc = this.x - enemy.x;
 		let yLoc = this.y - enemy.y;
@@ -70,10 +71,23 @@ Player.prototype.update = function() {
 			this.hit();
 		}
 	}
+	// Player made it to the end
+	if (this.y < 0) {
+		let that = this;
+		setTimeout(function() {
+			that.win();
+		}, 500);
+	}
 };
 
 // Player is hit by an enemy
 Player.prototype.hit = function() {
+	this.x = 200;
+	this.y = 375;
+}
+
+// Player wins
+Player.prototype.win = function() {
 	this.x = 200;
 	this.y = 375;
 }
