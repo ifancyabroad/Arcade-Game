@@ -188,7 +188,7 @@ Player.prototype.handleInput = function(key) {
 			}
 			break;
 		case 'down':
-			if (this.y < 300) {
+			if (this.y < 350) {
 				this.y += 80;
 			}
 			break;
