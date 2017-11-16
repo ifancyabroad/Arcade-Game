@@ -1,12 +1,14 @@
-// Global variable for score
+// Global variable for score and document element
 let scoreDisplay = document.getElementById('score');
 let score = 0;
 
+// Reset the score and update the page
 const resetScore = function() {
 	score = 0;
 	scoreDisplay.innerHTML = 'Score: ' + score;
 }
 
+// Increase the score and update the page
 const addScore = function(num) {
 	score += num;
 	scoreDisplay.innerHTML = 'Score: ' + score;
@@ -85,6 +87,7 @@ Enemy.prototype.render = function() {
 
 // Player class
 const Player = function() {
+	// Array of character sprites and counter to track currently selected character
 	this.character = 0;
 	this.characters = 
 	['images/char-boy.png',
@@ -122,18 +125,23 @@ Player.prototype.update = function() {
 
 // Player is hit by an enemy
 Player.prototype.hit = function() {
+	// Reset score
 	resetScore();
+	// Reset location
 	this.x = 200;
 	this.y = 375;
 }
 
 // Player wins
 Player.prototype.win = function() {
+	// Increment score
 	addScore(100);
+	// Reset location
 	this.x = 200;
 	this.y = 375;
 }
 
+// Change player sprite by moving through characters array
 Player.prototype.changeChar = function() {
 	if (this.character < this.characters.length - 1) {
 		this.character++
@@ -147,9 +155,11 @@ Player.prototype.changeChar = function() {
 // Player moves based on user input
 Player.prototype.handleInput = function(key) {
 	switch (key) {
+		// Spacebar to change character
 		case 'space':
 			this.changeChar();
 			break;
+		// Movement controls, restricted to the canvas
 		case 'left':
 			if (this.x > 50) {
 				this.x -= 100;
@@ -173,6 +183,7 @@ Player.prototype.handleInput = function(key) {
 	}
 };
 
+// Gems for th player to collect
 const Gem = function() {
 	// The image/sprite for the gem
 	this.sprite = 'images/Gem Blue.png';
@@ -181,6 +192,7 @@ const Gem = function() {
 	this.y = getLane();
 }
 
+// Render the gems to the screen
 Gem.prototype.render = function() {
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
@@ -199,7 +211,7 @@ const generateObjects = function(num, array, Class) {
 
 // Generate a specified amount of objects
 generateObjects(5, allEnemies, Enemy);
-generateObjects(2, allGems, Gem);
+generateObjects(1, allGems, Gem);
 
 // Global variable for the player
 let player = new Player();
