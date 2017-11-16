@@ -2,6 +2,11 @@
 let scoreDisplay = document.getElementById('score');
 let score = 0;
 
+const resetScore = function() {
+	score = 0;
+	scoreDisplay.innerHTML = 'Score: ' + score;
+}
+
 const addScore = function(num) {
 	score += num;
 	scoreDisplay.innerHTML = 'Score: ' + score;
@@ -88,6 +93,7 @@ Player.prototype.update = function() {
 
 // Player is hit by an enemy
 Player.prototype.hit = function() {
+	resetScore();
 	this.x = 200;
 	this.y = 375;
 }
