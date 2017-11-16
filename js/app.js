@@ -173,6 +173,17 @@ Player.prototype.handleInput = function(key) {
 	}
 };
 
+const Gem = function() {
+	// The image/sprite for the gem
+	this.sprite = 'images/Gem Blue.png';
+	// Starting x and y variables for location
+	this.x = getColumn();
+	this.y = getLane();
+}
+
+Gem.prototype.render = function() {
+	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -187,9 +198,19 @@ const generateEnemies = function(num) {
 
 generateEnemies(5);
 
+let allGems = [];
+
+const generateGems = function(num) {
+	for (let i = 0; i < num; i++) {
+		let gem = new Gem();
+		allGems.push(gem);
+	}
+}
+
+generateGems(2);
+
 // Global variable for the player
 let player = new Player();
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method.
