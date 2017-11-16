@@ -185,29 +185,21 @@ Gem.prototype.render = function() {
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
+// Object arrays
 let allEnemies = [];
-
-const generateEnemies = function(num) {
-	for (let i = 0; i < num; i++) {
-		let enemy = new Enemy();
-		allEnemies.push(enemy);
-	}
-}
-
-generateEnemies(5);
-
 let allGems = [];
 
-const generateGems = function(num) {
+// Add specified amount of objects to specified array
+const generateObjects = function(num, array, Class) {
 	for (let i = 0; i < num; i++) {
-		let gem = new Gem();
-		allGems.push(gem);
+		let object = new Class();
+		array.push(object);
 	}
 }
 
-generateGems(2);
+// Generate a specified amount of objects
+generateObjects(5, allEnemies, Enemy);
+generateObjects(2, allGems, Gem);
 
 // Global variable for the player
 let player = new Player();
