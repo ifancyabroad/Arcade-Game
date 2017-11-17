@@ -15,7 +15,7 @@ Some the **challenges** faced while developing the application are as follows:
 - Thinking creatively to expand the game
 
 ## Installation
-To install the app simply clone/download this repository and open index.html in your browser.
+To install the app simply clone/download this repository and open index.html in your browser or alternatively it can be played at the following [GitHub page](https://ifancyabroad.github.io/Arcade-Game/).
 
 ## Instructions
 ### Goal
